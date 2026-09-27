@@ -117,3 +117,34 @@ def duration_in_hours(minutes):
     hours = minutes // 60  # целочисленное деление
     mins = minutes % 60  # остаток от деления
     return f"{hours}ч {mins}м"
+
+
+def rating_tier(rating):
+    """
+    Функция по оценке возвращает категорию: "шедевр" (≥9), "хорошо" (7-8.9),
+    "средне" (5-6.9), "слабо" (<5)
+    """
+    if rating >= 9:
+        return "шедевр"
+    elif rating >= 7:
+        return "хорошо"
+    elif rating >= 5:
+        return "средне"
+    else:
+        return "слабо" if rating >= 0 else "некорректная оценка"
+
+
+def decade_label(year):
+    """
+    Функция возвращает метку "новые" (после 2020), "недавние" (2015-2020)
+    или "старые" (раньше 2015)
+    """
+    if not isinstance(year, int):
+        return "неизвестно"
+    match year:
+        case _ if year > 2020:
+            return "новые"
+        case _ if year >= 2015:
+            return "недавние"
+        case _:
+            return "старые"

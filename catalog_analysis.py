@@ -176,3 +176,34 @@ def count_long_movies(movies, threshold=120):
         if item["duration_min"] > threshold:
             count += 1
     return count
+
+
+def normalize_title(title):
+    """
+    Функция возыращает строку приведенную к формату
+    Title Case (каждое слово c заглавной буквы)
+    """
+    words = title.split()
+    words_appear = [word[0].upper() + word[1:] for word in words]
+    return " ".join(words_appear)
+
+
+def make_slug(title):
+    """
+    Функция возвращает нормализованное название в «слаг» вида the-quiet-algorithm
+    """
+    normalized = normalize_title(title)
+    lower_words = normalized.lower().split()
+    return "-".join(lower_words)
+
+
+def format_report_line(movie):
+    """
+    Функция возвращает единую строку c описанием фильма
+    """
+    title = normalize_title(movie["title"])
+    year = movie["year"]
+    rating = movie["rating"]
+    duration = duration_in_hours(movie["duration_min"])
+    genres = ", ".join(movie["genres"])
+    return f'"{title}" ({year}) - {rating}/10, {duration}, жанры: {genres}'

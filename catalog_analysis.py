@@ -1,3 +1,5 @@
+import math
+
 movies = [
     {
         "title": "The Dune Chronicles",
@@ -80,3 +82,38 @@ movies = [
         "actors": ["P. Diaz", "T. Chalamet"],
     },
 ]
+
+
+def average_rating(movies):
+    """
+    Функция возвращает среднюю оценку по каталогу, округленную до одного знака
+    """
+    if not movies:
+        return 0
+    ratings = [item["rating"] for item in movies]
+    return round(sum(ratings) / len(ratings), 1)
+
+
+def catalog_age_stats(movies, current_year=2026):
+    """
+    Функция возвращает возвращает кортеж (самый старый фильм в годах,
+    самый новый фильм в годах, среднее)
+    """
+    if not movies:
+        return (0, 0, 0)
+
+    ages = [current_year - item["year"] for item in movies]
+    oldest_age = max(ages)  # самый старый фильм
+    newest_age = min(ages)  # самый новый фильм
+    avg_age = math.ceil(sum(ages) / len(ages))
+
+    return (oldest_age, newest_age, avg_age)
+
+
+def duration_in_hours(minutes):
+    """
+    Функция возвращает перевод из минут в часы и минуты в формате *ч *м
+    """
+    hours = minutes // 60  # целочисленное деление
+    mins = minutes % 60  # остаток от деления
+    return f"{hours}ч {mins}м"

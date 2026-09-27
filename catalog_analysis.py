@@ -207,3 +207,25 @@ def format_report_line(movie):
     duration = duration_in_hours(movie["duration_min"])
     genres = ", ".join(movie["genres"])
     return f'"{title}" ({year}) - {rating}/10, {duration}, жанры: {genres}'
+
+
+def titles_sorted_by_rating(movies):
+    """
+    Функция возвращает список названий фильмов, отсортированных
+    по убыванию рейтинга
+    """
+    by_rating = sorted(movies, key=lambda m: m["rating"], reverse=True)
+    """
+    Если изменить вывод titles_sorted_by_rating и
+    реализовать там вывод отсортированного списка обьектов, то функция
+    получилась бы более универсальной
+    """
+    return [movie["title"] for movie in by_rating]
+
+
+def top_n_by_rating(movies, n=3):
+    """
+    Функция возвращает список из n кортежей (title, rating) — топ по рейтингу
+    """
+    by_rating = sorted(movies, key=lambda m: m["rating"], reverse=True)[:n]
+    return [(m["title"], m["rating"]) for m in by_rating]

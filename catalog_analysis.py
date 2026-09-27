@@ -264,3 +264,27 @@ def above_average_movies(movies):
     return {
         movie["title"]: movie["rating"] for movie in movies if movie["rating"] > avg
     }
+
+
+def all_genres(movies):
+    """
+    Функция возвращает множество всех уникальных жанров каталога
+    """
+    genres = set()
+    for movie in movies:
+        genres.update(movie["genres"])
+    return genres
+
+
+def common_actors(movie1, movie2):
+    """
+    Функция возвращает множество актёров, снимавшихся в обоих фильмах
+    """
+    return set(movie1["actors"]) & set(movie2["actors"])
+
+
+def genres_only_in_one(movies_a, movies_b):
+    """
+    Функция возвращает жанры, встречающиеся в movies_a, но не в movies_b
+    """
+    return all_genres(movies_a) - all_genres(movies_b)

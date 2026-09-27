@@ -288,3 +288,20 @@ def genres_only_in_one(movies_a, movies_b):
     Функция возвращает жанры, встречающиеся в movies_a, но не в movies_b
     """
     return all_genres(movies_a) - all_genres(movies_b)
+
+
+def iter_high_rated(movies, min_rating=8.0):
+    """
+    Функция-генератор: лениво отдаёт фильмы c рейтингом не ниже min_rating
+    """
+    for movie in movies:
+        if movie["rating"] >= min_rating:
+            yield movie
+
+
+# Демонстрация
+for movie in iter_high_rated(movies):
+    print(format_report_line(movie))
+
+# Суммарная длительность фильмов с рейтингом > 7
+print(sum(m["duration_min"] for m in movies if m["rating"] > 7))

@@ -305,3 +305,40 @@ for movie in iter_high_rated(movies):
 
 # Суммарная длительность фильмов с рейтингом > 7
 print(sum(m["duration_min"] for m in movies if m["rating"] > 7))
+
+
+def build_report(movies):
+    """
+    Выводит на экран единый консольный отчет: общую статистику, топ-3 фильма,
+    количество фильмов по каждому жанру и полный список уникальных жанров каталога
+    """
+    print("ОТЧеТ ПО КАТАЛОГУ")
+    print(f"Средний рейтинг: {average_rating(movies)}")
+    print(f"Средний возраст фильмов: {catalog_age_stats(movies)[2]} лет")
+    print()
+    print("Топ-3 фильма:")
+
+    """
+    Приходится делать лишний поиск ТОП-3 поскольку по заданию 5 
+    top_n_by_rating возвращает список из n кортежей (title, rating)
+    a функция titles_sorted_by_rating возвращает список названий фильмов, 
+    отсортированных по убыванию рейтинга
+    Использовать их нет смысла. Если изменить вывод titles_sorted_by_rating и
+    реализовать там вывод отсортированного списка полных словарей фильмов, 
+    то функция получилась бы более универсальной
+    """
+    top3 = sorted(movies, key=lambda m: m["rating"], reverse=True)[:3]
+    for movie in top3:
+        print("  ", format_report_line(movie))
+
+    print()
+    print("Фильмов по жанрам:")
+    statistic_genres = count_by_genre(movies)
+    for k, v in statistic_genres.items():
+        print("  ", f"{k} - {v}")
+
+    print()
+    print(f"Все жанры каталога: {', '.join(sorted(all_genres(movies)))}")
+
+
+build_report(movies)
